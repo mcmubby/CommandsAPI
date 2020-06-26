@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Command.Data;
+using Command.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,7 +30,8 @@ namespace Command
         {
             services.AddDbContextPool<CommandDbContext>(
                 opt => opt.UseSqlServer(Configuration.GetConnectionString("CommandConnection")));
-                
+
+            services.AddScoped<ICommandService, SqlCommandRepo>();
             services.AddControllers();
         }
 
